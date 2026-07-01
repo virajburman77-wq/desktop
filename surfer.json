@@ -1,0 +1,57 @@
+{
+  "name": "Vibe Browser",
+  "vendor": "Vibe OSS Team",
+  "appId": "vibe",
+  "binaryName": "vibe",
+  "version": {
+    "product": "firefox",
+    "version": "152.0.3",
+    "candidate": "152.0.3",
+    "candidateBuild": 1
+  },
+  "buildOptions": {
+    "generateBranding": true
+  },
+  "addons": {},
+  "brands": {
+    "release": {
+      "backgroundColor": "#282A33",
+      "brandShorterName": "Vibe",
+      "brandShortName": "Vibe",
+      "brandFullName": "Vibe Browser",
+      "release": {
+        "displayVersion": "1.21.4b",
+        "github": {
+          "repo": "vibe-browser/desktop"
+        },
+        "archives": {
+          "windows": "windows.mar",
+          "macos-aarch64": "macos-aarch64.mar",
+          "linux": "linux.mar",
+          "macos-x64": "macos-x64.mar",
+          "windows-arm64": "windows-arm64.mar",
+          "linux-aarch64": "linux-aarch64.mar"
+        }
+      }
+    },
+    "twilight": {
+      "backgroundColor": "#282A33",
+      "brandShorterName": "Vibe",
+      "brandShortName": "Twilight",
+      "brandFullName": "Vibe Twilight",
+      "release": {
+        "displayVersion": "1.22t",
+        "github": {
+          "repo": "vibe-browser/desktop"
+        }
+      }
+    }
+  },
+  "license": {
+    "ignoredFiles": [
+      ".*\\.json"
+    ],
+    "licenseType": "MPL-2.0"
+  },
+  "updateHostname": "updates.vibe-browser.app"
+}

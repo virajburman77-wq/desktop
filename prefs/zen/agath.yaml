@@ -1,0 +1,30 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: zen.agath.enabled
+  value: true
+
+- name: zen.agath.api-key
+  hidden: true
+  value: ""
+
+- name: zen.agath.model
+  value: "llama-3.1-70b-versatile"
+
+- name: zen.agath.max-steps
+  value: 20
+
+- name: zen.agath.human-delay-ms
+  value: 800
+
+- name: zen.agath.last-history
+  value: ""
+  hidden: true
+
+- name: zen.agath.custom-commands
+  value: "[]"
+  hidden: true
+
+- name: zen.agath.onboarding-done
+  value: false

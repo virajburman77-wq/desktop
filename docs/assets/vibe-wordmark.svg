@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80" height="80" width="250">
+  <defs>
+    <style>
+      .text { font-size: 48px; font-family: Arial, Helvetica, sans-serif; font-weight: 800; fill: #1f1f1f; }
+      @media (prefers-color-scheme: dark) {
+        .text { fill: #d1cfc0; }
+      }
+    </style>
+  </defs>
+  <text class="text" y="55" x="5">Vibe Browser</text>
+</svg>

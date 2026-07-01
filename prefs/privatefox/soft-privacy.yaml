@@ -1,0 +1,352 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+# Soft Privacy — balanced privacy enhancements that protect users
+# without breaking website functionality. Designed for everyday use.
+
+# --- HTTPS-Only Mode ---
+- name: dom.security.https_only_mode
+  value: true
+  locked: true
+
+- name: dom.security.https_only_mode_error_page_user_suggestions
+  value: true
+
+# --- DNS over HTTPS (DoH) ---
+- name: network.trr.mode
+  value: 3
+  locked: true
+
+- name: network.trr.uri
+  value: "https://mozilla.cloudflare-dns.com/dns-query"
+  locked: true
+
+- name: network.trr.custom_uri
+  value: "https://mozilla.cloudflare-dns.com/dns-query"
+
+- name: network.trr.fallback
+  value: true
+
+- name: network.trr.blocking_off
+  value: false
+
+# --- Enhanced Tracking Protection (Strict) ---
+- name: privacy.trackingprotection.fingerprinting.enabled
+  value: true
+  locked: true
+
+- name: privacy.trackingprotection.cryptomining.enabled
+  value: true
+  locked: true
+
+- name: privacy.trackingprotection.socialtrack.enabled
+  value: true
+  locked: true
+
+- name: privacy.trackingprotection.enabled
+  value: true
+  locked: true
+
+- name: privacy.trackingprotection.pbmode.enabled
+  value: true
+  locked: true
+
+- name: browser.contentblocking.category
+  value: "strict"
+  locked: true
+
+# --- Total Cookie Protection (dFPI) ---
+- name: network.cookie.cookieBehavior
+  value: 5
+  locked: true
+
+- name: network.cookie.cookieBehavior.pbmode
+  value: 5
+  locked: true
+
+- name: privacy.partition.always_partition_third_party_non_cookie_storage
+  value: true
+  locked: true
+
+- name: privacy.partition.always_partition_third_party_non_cookie_storage.pbmode
+  value: true
+  locked: true
+
+- name: privacy.dynamic_firstparty_ui.enabled
+  value: true
+
+# --- Fingerprinting Protection ---
+- name: privacy.resistFingerprinting
+  value: false
+
+- name: privacy.resistFingerprinting.block_mozAddonManager
+  value: true
+
+- name: privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts
+  value: true
+
+- name: privacy.fingerprintingProtection
+  value: true
+  locked: true
+
+- name: privacy.fingerprintingProtection.pbmode
+  value: true
+  locked: true
+
+- name: privacy.fingerprintingProtection.overrides
+  value: "+AllTargets,-CanonicalizePathForZoom,-CSSPrefersColorScheme,-CSSPrefersContrast,-CSSPrefersReducedMotion,-CSSScreenSize,-DateTime,-DOMScene,-ForbiddenURLParam,-GpuVendor,-Keyboard,-MediaDevices,-MediaDevicesEnumerateDevices,-OSKey,-Pointer,-SpoofEnglish,-UnconditionalSpecificAudioSampleRate"
+
+# --- Clear Data on Close ---
+- name: privacy.sanitize.sanitizeOnShutdown
+  value: true
+
+- name: privacy.sanitize.sanitizeOnShutdown.pbmode
+  value: true
+
+- name: privacy.clearOnShutdown.cache
+  value: true
+
+- name: privacy.clearOnShutdown.cookies
+  value: false
+
+- name: privacy.clearOnShutdown.downloads
+  value: false
+
+- name: privacy.clearOnShutdown.formdata
+  value: false
+
+- name: privacy.clearOnShutdown.history
+  value: false
+
+- name: privacy.clearOnShutdown.offlineApps
+  value: false
+
+- name: privacy.clearOnShutdown.sessions
+  value: false
+
+- name: privacy.clearOnShutdown.siteSettings
+  value: false
+
+# --- Disable Prefetching & Speculative Connections ---
+- name: network.dns.disablePrefetch
+  value: true
+
+- name: network.dns.disablePrefetchFromHTTPS
+  value: true
+
+- name: network.prefetch-next
+  value: false
+
+- name: network.preconnect
+  value: false
+
+- name: network.http.speculative-parallel-limit
+  value: 0
+
+- name: browser.urlbar.speculativeConnect.enabled
+  value: false
+
+- name: browser.places.speculativeConnect.enabled
+  value: false
+
+- name: network.predictor.enabled
+  value: false
+
+- name: network.predictor.enable-hover-on-ssl
+  value: false
+
+- name: browser.newtab.preload
+  value: false
+
+# --- Referrer Policy ---
+- name: network.http.sendRefererHeader
+  value: 2
+
+- name: network.http.referer.defaultPolicy
+  value: 2
+
+- name: network.http.referer.defaultPolicy.pbmode
+  value: 1
+
+- name: network.http.referer.trimmingPolicy
+  value: 2
+
+- name: network.http.referer.XOriginTrimmingPolicy
+  value: 2
+
+- name: network.http.referer.spoofSource
+  value: false
+
+- name: network.http.referer.hideOnDomainSource
+  value: true
+
+# --- OCSP / Certificate Validation ---
+- name: security.OCSP.enabled
+  value: 1
+
+- name: security.OCSP.require
+  value: false
+
+- name: security.ssl.enable_ocsp_stapling
+  value: true
+
+- name: security.ssl.enable_ocsp_must_staple
+  value: true
+
+- name: security.pki.sha1_enforcement_level
+  value: 1
+
+# --- Safe Browsing (all protections enabled) ---
+- name: browser.safebrowsing.malware.enabled
+  value: true
+
+- name: browser.safebrowsing.phishing.enabled
+  value: true
+
+- name: browser.safebrowsing.downloads.enabled
+  value: true
+
+- name: browser.safebrowsing.downloads.remote.block_potentially_unwanted
+  value: true
+
+- name: browser.safebrowsing.downloads.remote.block_uncommon
+  value: true
+
+- name: browser.safebrowsing.allowOverride
+  value: false
+
+# --- Permissions (all blocked by default — user can grant) ---
+- name: permissions.default.geo
+  value: 2
+
+- name: permissions.default.camera
+  value: 2
+
+- name: permissions.default.microphone
+  value: 2
+
+- name: permissions.default.notifications
+  value: 2
+
+- name: permissions.default.desktop-notification
+  value: 2
+
+- name: permissions.default.xr
+  value: 2
+
+- name: permissions.default.autoplay-media
+  value: 5
+
+- name: media.autoplay.default
+  value: 5
+
+- name: media.autoplay.blocking_policy
+  value: 2
+
+- name: media.autoplay.block-webaudio
+  value: true
+
+# --- Autofill ---
+- name: extensions.formautofill.addresses.enabled
+  value: false
+
+- name: extensions.formautofill.creditCards.enabled
+  value: false
+
+- name: extensions.formautofill.heuristics.enabled
+  value: false
+
+# --- Push Notifications / Service Workers ---
+- name: dom.push.enabled
+  value: false
+
+- name: dom.push.connection.enabled
+  value: false
+
+# --- WebRTC Privacy ---
+- name: media.peerconnection.ice.default_address_only
+  value: true
+
+- name: media.peerconnection.ice.no_host
+  value: false
+
+- name: media.peerconnection.ice.obfuscate_host_addresses
+  value: true
+
+# --- Miscellaneous Privacy ---
+- name: browser.send_pings
+  value: false
+
+- name: browser.send_pings.require_same_domain
+  value: false
+
+- name: browser.urlbar.trimURLs
+  value: true
+
+- name: browser.privatebrowsing.autostart
+  value: false
+
+- name: signon.rememberSignons
+  value: true
+
+- name: signon.autofillForms
+  value: false
+
+- name: signon.privateBrowsingOnly
+  value: true
+
+- name: security.certerrors.mitm.auto_enable_enterprise_roots
+  value: false
+
+- name: security.certerrors.mitm.priming.enabled
+  value: false
+
+- name: security.mixed_content.block_active_content
+  value: true
+
+- name: security.mixed_content.block_display_content
+  value: true
+
+- name: security.mixed_content.upgrade_display_content
+  value: true
+
+- name: security.mixed_content.upgrade_display_content.image
+  value: true
+
+- name: network.IDN_show_punycode
+  value: true
+
+- name: dom.storage.snapshot_reusing
+  value: false
+
+- name: layout.css.visited_links_enabled
+  value: false
+
+# --- Disable Pocket ---
+- name: extensions.pocket.enabled
+  value: false
+  locked: true
+
+# --- Disable Screenshots (prevents accidental data leaks) ---
+- name: extensions.screenshots.disabled
+  value: true
+
+# --- Disable Firefox Sync Telemetry ---
+- name: services.sync.engine.addons
+  value: false
+
+- name: services.sync.engine.history
+  value: false
+
+- name: services.sync.engine.passwords
+  value: false
+
+- name: services.sync.engine.prefs
+  value: false
+
+- name: services.sync.engine.tabs
+  value: false
+
+- name: services.sync.engine.bookmarks
+  value: false

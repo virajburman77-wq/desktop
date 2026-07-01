@@ -1,0 +1,322 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+# Lightning Speed — performance optimizations that don't compromise privacy.
+# Works alongside soft-privacy.yaml (prefetch/speculative prefs are respected).
+
+# --- Content Process Limit (more processes = faster page loads + better isolation) ---
+- name: dom.ipc.processCount
+  value: 8
+  locked: true
+
+- name: dom.ipc.processCount.extension
+  value: 4
+
+- name: dom.ipc.processCount.file
+  value: 4
+
+- name: dom.ipc.processCount.webIsolated
+  value: 4
+
+- name: dom.ipc.processCount.privilegedabout
+  value: 2
+
+# --- GPU / Rendering Acceleration ---
+- name: gfx.webrender.all
+  value: true
+  locked: true
+
+- name: gfx.webrender.compositor
+  value: true
+  locked: true
+
+- name: gfx.webrender.compositor.force-enabled
+  value: true
+
+- name: gfx.webrender.precache-shaders
+  value: true
+
+- name: gfx.webrender.use-gpu-cache
+  value: true
+
+- name: gfx.webrender.quality.force-local-image-buffer
+  value: true
+
+- name: gfx.content.always-paint
+  value: false
+
+- name: gfx.canvas.accelerated
+  value: true
+  locked: true
+
+- name: gfx.canvas.accelerated.cache-items
+  value: 8192
+
+- name: gfx.canvas.accelerated.cache-size
+  value: 512
+
+# --- WebRender Shader Optimizations ---
+- name: gfx.webrender.use-native-precision
+  value: true
+
+- name: gfx.webrender.software.driver-fallback
+  value: false
+
+# --- Image Decoding (parallel + faster) ---
+- name: image.decode-immediately.enabled
+  value: true
+
+- name: image.mem.decode_bytes_at_a_time
+  value: 65536
+
+- name: image.mem.shared
+  value: true
+
+- name: image.decode-only-on-draw
+  value: false
+
+# --- HTTP/3 (QUIC) — faster connections ---
+- name: network.http.http3.enabled
+  value: true
+  locked: true
+
+- name: network.http.http3.alt-svc-mapping-for-testing
+  value: ""
+
+- name: network.http.http3.enable_0rtt
+  value: true
+
+- name: network.http.http3.qpack_table_size
+  value: 8192
+
+# --- TCP Fast Open — faster TCP handshake (safe: no data leak) ---
+- name: network.tcp.tcp_fastopen_enable
+  value: true
+  locked: true
+
+- name: network.tcp.tcp_fastopen_consecutive_failure_limit
+  value: 5
+
+# --- Network Connection Pooling ---
+- name: network.http.max-connections
+  value: 900
+
+- name: network.http.max-persistent-connections-per-server
+  value: 10
+
+- name: network.http.max-persistent-connections-per-proxy
+  value: 32
+
+- name: network.http.max-urgent-start-excessive-connections-per-host
+  value: 5
+
+# --- Connection Keep-Alive ---
+- name: network.http.keep-alive.timeout
+  value: 115
+
+- name: network.http.keep-alive.max-time
+  value: 300
+
+# --- Priority Hints (fetchpriority) ---
+- name: network.fetchpriority.enabled
+  value: true
+
+- name: dom.enable_web_task_scheduling
+  value: true
+
+# --- JavaScript / JIT ---
+- name: javascript.options.jit.content
+  value: true
+
+- name: javascript.options.jit.trustedprincipals
+  value: true
+
+- name: javascript.options.wasm
+  value: true
+
+- name: javascript.options.ion
+  value: true
+
+- name: javascript.options.baselinejit
+  value: true
+
+- name: javascript.options.native_regexp
+  value: true
+
+- name: javascript.options.parallel_parsing
+  value: true
+
+# --- DOM / CSS Performance ---
+- name: layout.css.grid.enabled
+  value: true
+
+- name: layout.css.overflow-overlay.enabled
+  value: true
+
+- name: layout.css.scroll-behavior.damping-ratio
+  value: 1.0
+
+- name: layout.css.supports-selector.enabled
+  value: true
+
+- name: dom.animations-api.autoremove.enabled
+  value: true
+
+- name: dom.animations-api.getAnimations.implicit
+  value: true
+
+- name: dom.animations-api.omit-support-notification
+  value: true
+
+# --- Mutation Observer / DOM Performance ---
+- name: dom.mutation-events.enabled
+  value: false
+
+- name: dom.performance.enable_resource_timing
+  value: true
+
+- name: dom.performance.enable_user_timing
+  value: true
+
+# --- Disk Cache (faster repeat visits) ---
+- name: browser.cache.disk.enable
+  value: true
+
+- name: browser.cache.disk.capacity
+  value: 512000
+
+- name: browser.cache.disk.smart_size.enabled
+  value: false
+
+- name: browser.cache.disk_cache_ssl
+  value: true
+
+- name: browser.cache.memory.enable
+  value: true
+
+- name: browser.cache.memory.capacity
+  value: 65536
+
+- name: browser.cache.memory_limit
+  value: 262144
+
+# --- Session Restore (lazy loading — faster startup) ---
+- name: browser.sessionstore.restore_on_demand
+  value: true
+
+- name: browser.sessionstore.restore_tabs_lazily
+  value: true
+
+- name: browser.sessionstore.restore_pinned_tabs_on_demand
+  value: false
+
+- name: browser.sessionstore.max_resumed_crashes
+  value: 3
+
+- name: browser.sessionstore.interval
+  value: 60000
+
+# --- Background Tabs (throttle to save CPU for foreground) ---
+- name: browser.tabs.unloadOnLowMemory
+  value: true
+
+- name: browser.tabs.min_inactive_duration_before_unload
+  value: 600000
+
+- name: pagehide.disable_background_tabs_throttling
+  value: false
+
+# --- Accessibility (disable if not needed — speeds up DOM) ---
+- name: accessibility.force_disabled
+  value: 1
+
+# --- Overlay Scrollbars (less repainting) ---
+- name: layout.overlay-scrollbars.enabled
+  value: true
+
+# --- Parallel Painting / Compositing ---
+- name: layers.acceleration.force-enabled
+  value: true
+
+- name: layers.async-video-oop.enabled
+  value: true
+
+- name: layers.offmainthreadcomposition.async-pan-zoom
+  value: true
+
+- name: layers.offmainthreadcomposition.frame-rate
+  value: 0
+
+# --- Video / Media Performance ---
+- name: media.hardware-video-decoding.force-enabled
+  value: true
+
+- name: media.navigator.mediadatastore
+  value: false
+
+- name: media.rdd-vpx.enabled
+  value: true
+
+- name: media.rdd-process.enabled
+  value: true
+
+# --- Storage / IndexedDB ---
+- name: dom.indexedDB.logging.enabled
+  value: false
+
+- name: dom.storage.snapshot_reusing
+  value: true
+
+# --- Service Worker Performance ---
+- name: dom.serviceWorkers.enabled
+  value: true
+
+# --- Disable unused features that slow down browsing ---
+- name: intl.regional_prefs.use_os_locales
+  value: false
+
+- name: browser.disableResetPrompt
+  value: true
+
+- name: browser.uitour.enabled
+  value: false
+
+- name: browser.urlbar.suggest.history
+  value: true
+
+- name: browser.urlbar.suggest.bookmark
+  value: true
+
+- name: browser.urlbar.suggest.openpage
+  value: true
+
+- name: browser.urlbar.quicksuggest.enabled
+  value: false
+
+- name: browser.urlbar.quicksuggest.dataCollection.enabled
+  value: false
+
+# --- Hardware Concurrency (maximize available cores) ---
+- name: dom.maxChildProcesses
+  value: 8
+
+- name: dom.max_script_run_time
+  value: 10
+
+# --- Downloads (faster download manager) ---
+- name: browser.download.animateNotifications
+  value: false
+
+- name: browser.download.autohideButton
+  value: true
+
+# --- Font rendering (faster) ---
+- name: gfx.downloadable_fonts.enabled
+  value: true
+
+- name: gfx.downloadable_fonts.woff2.enabled
+  value: true
+
+- name: gfx.downloadable_fonts.keep_at_least_one_platform_font
+  value: true

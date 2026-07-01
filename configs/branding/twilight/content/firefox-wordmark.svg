@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 56" height="56" width="260">
+  <defs>
+    <style>
+      .text { font-size: 32px; font-family: sans-serif; font-weight: 700; fill: context-fill #20123a; }
+    </style>
+  </defs>
+  <text class="text" y="42" x="10">Vibe</text>
+</svg>
