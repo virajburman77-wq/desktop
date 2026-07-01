@@ -41,8 +41,19 @@ jobs:
       - name: Import patches
         run: npm run import
 
+      - name: Build language packs
+        run: sh scripts/download-language-packs.sh
+
+      - name: Fix Rust version
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain $(cat .rust-toolchain)
+          source $HOME/.cargo/env
+
       - name: Bootstrap build
         run: npm run bootstrap
+
+      - name: Install cbindgen
+        run: source $HOME/.cargo/env && cargo install cbindgen --locked
 
       - name: Build
         run: npm run build
