@@ -13,6 +13,13 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    env:
+      ZEN_RELEASE: 1
+      SURFER_COMPAT: x86_64
+      ZEN_GA_DISABLE_PGO: true
+      ZEN_RELEASE_BRANCH: release
+      CARGO_TERM_COLOR: always
+      CARGO_INCREMENTAL: 0
     steps:
       - uses: actions/checkout@v4
 
@@ -39,6 +46,9 @@ jobs:
         run: npm run download
 
       - name: Import patches
+        env:
+          SURFER_CERT_PATCH_ISSUER: ${{ secrets.SURFER_CERT_PATCH_ISSUER }}
+          SURFER_CERT_PATCH_NAME: ${{ secrets.SURFER_CERT_PATCH_NAME }}
         run: npm run import
 
       - name: Build language packs
@@ -47,15 +57,20 @@ jobs:
       - name: Fix Rust version
         run: |
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain $(cat .rust-toolchain)
-          source $HOME/.cargo/env
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+          rustup target add x86_64-unknown-linux-gnu
 
       - name: Bootstrap build
         run: npm run bootstrap
 
       - name: Install cbindgen
-        run: source $HOME/.cargo/env && cargo install cbindgen --locked
+        run: cargo install cbindgen --locked
 
       - name: Build
+        env:
+          ZEN_SAFEBROWSING_API_KEY: ${{ secrets.ZEN_SAFEBROWSING_API_KEY }}
+          ZEN_MOZILLA_API_KEY: ${{ secrets.ZEN_MOZILLA_API_KEY }}
+          ZEN_GOOGLE_LOCATION_SERVICE_API_KEY: ${{ secrets.ZEN_GOOGLE_LOCATION_SERVICE_API_KEY }}
         run: npm run build
 
       - name: Package installer
