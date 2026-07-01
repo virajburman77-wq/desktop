@@ -1,6 +1,6 @@
 var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
-const GITHUB_OWNER = "vibe-browser";
+const GITHUB_OWNER = "virajburman77-wq";
 const GITHUB_REPO = "desktop";
 const GITHUB_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`;
 

@@ -22,7 +22,7 @@
       "release": {
         "displayVersion": "1.21.4b",
         "github": {
-          "repo": "vibe-browser/desktop"
+          "repo": "virajburman77-wq/desktop"
         },
         "archives": {
           "windows": "windows.mar",
@@ -42,7 +42,7 @@
       "release": {
         "displayVersion": "1.22t",
         "github": {
-          "repo": "vibe-browser/desktop"
+          "repo": "virajburman77-wq/desktop"
         }
       }
     }
