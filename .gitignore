@@ -27,6 +27,8 @@ locales/firefox-l10n/
 .DS_Store
 
 mozconfig
+!configs/common/mozconfig
+!configs/*/mozconfig
 
 build/signing/env/
 build/signing/nss_config/
