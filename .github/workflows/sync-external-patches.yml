@@ -67,7 +67,6 @@ jobs:
           GIT_TRACE: 1
           GIT_CURL_VERBOSE: 1
         with:
-          token: ${{ secrets.DEPLOY_KEY }}
           commit-message: "chore: Sync external patches"
           branch: "chore/sync-external-patches-${{ github.run_id }}"
           title: "Sync external patches"
@@ -80,3 +79,4 @@ jobs:
           base: dev
           git-token: ${{ secrets.DEPLOY_KEY }}
           delete-branch: true
+

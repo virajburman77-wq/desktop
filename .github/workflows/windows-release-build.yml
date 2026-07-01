@@ -55,8 +55,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
-          token: ${{ secrets.DEPLOY_KEY }}
+          submodules: false
 
       - name: Setup Node.js
         uses: useblacksmith/setup-node@v5
@@ -331,3 +330,4 @@ jobs:
           retention-days: 5
           name: windows_update_manifest_${{ matrix.arch == 'aarch64' && 'arm64' || matrix.arch }}
           path: ./dist/update
+

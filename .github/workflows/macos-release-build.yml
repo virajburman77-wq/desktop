@@ -40,8 +40,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
-          token: ${{ secrets.DEPLOY_KEY }}
+          submodules: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -222,3 +221,4 @@ jobs:
           retention-days: 1
           name: platform.ini
           path: ./platform.ini
+
