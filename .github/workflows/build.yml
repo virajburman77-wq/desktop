@@ -180,7 +180,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ inputs.update_version }}
         with:
-          commit_message: ðŸ”– Update version to ${{ steps.data.outputs.version }}
+          commit_message: =ƒöû Update version to ${{ steps.data.outputs.version }}
           commit_user_name: Vibe Browser Robot
           commit_user_email: vibe-browser-auto@users.noreply.github.com
 
@@ -546,7 +546,7 @@ jobs:
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: ðŸš€ Update update manifests
+          commit_message: =ƒÜÇ Update update manifests
           commit_user_name: Vibe Browser Robot
           commit_user_email: vibe-browser-auto@users.noreply.github.com
           repository: ./updates-server
@@ -644,7 +644,7 @@ jobs:
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: ðŸš€ Update releases for Flatpak
+          commit_message: =ƒÜÇ Update releases for Flatpak
           commit_user_name: Vibe Browser Robot
           commit_user_email: vibe-browser-auto@users.noreply.github.com
 
