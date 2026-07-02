@@ -1,0 +1,16 @@
+{
+  "name": "Vibe Browser Build",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/rust:1": {}
+  },
+  "postCreateCommand": "bash .devcontainer/build.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": []
+    }
+  },
+  "forwardPorts": [],
+  "remoteUser": "vscode"
+}
