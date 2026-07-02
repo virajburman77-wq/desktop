@@ -16,11 +16,12 @@ jobs:
     env:
       ZEN_RELEASE: 1
       SURFER_COMPAT: x86_64
+      SURFER_PLATFORM: linux
       ZEN_GA_DISABLE_PGO: true
+      ZEN_DISABLE_LTO: true
       ZEN_RELEASE_BRANCH: release
       CARGO_TERM_COLOR: always
       CARGO_INCREMENTAL: 0
-      SURFER_PLATFORM: linux
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,14 +32,15 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - name: Install system deps
+      - name: Free disk space
         run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
           sudo apt-get update
-          sudo apt-get install -y python3 python3-pip yasm nasm build-essential \
+          sudo apt-get install -y python3 python3-pip dos2unix yasm nasm build-essential \
             libgtk2.0-dev libpython3-dev m4 uuid libasound2-dev libcurl4-openssl-dev \
             libdbus-1-dev libdrm-dev libdbus-glib-1-dev libgtk-3-dev libpulse-dev \
             libx11-xcb-dev libxt-dev lld llvm clang libclang-dev \
-            libc6-dev libstdc++-12-dev dos2unix xvfb
+            libc6-dev libstdc++-12-dev xvfb
 
       - name: Setup Git
         run: |
@@ -54,6 +56,12 @@ jobs:
       - name: Download Firefox engine
         run: npm run download
 
+      - name: Fix Rust version
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain $(cat .rust-toolchain)
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+          rustup target add x86_64-unknown-linux-gnu
+
       - name: Import patches
         env:
           SURFER_CERT_PATCH_ISSUER: ${{ secrets.SURFER_CERT_PATCH_ISSUER }}
@@ -61,13 +69,7 @@ jobs:
         run: npm run import
 
       - name: Build language packs
-        run: sh scripts/download-language-packs.sh
-
-      - name: Fix Rust version
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain $(cat .rust-toolchain)
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-          rustup target add x86_64-unknown-linux-gnu
+        run: sh scripts/download-language-packs.sh || true
 
       - name: Bootstrap
         run: |
@@ -75,8 +77,11 @@ jobs:
           ./mach --no-interactive bootstrap --application-choice browser
           cd ..
 
-      - name: Install cbindgen
-        run: cargo install cbindgen --locked
+      - name: Limit parallelism
+        run: |
+          cores=$(nproc)
+          half=$((cores > 4 ? cores / 2 : 2))
+          echo "MOZ_MAKE_FLAGS=-j${half}" >> $GITHUB_ENV
 
       - name: Build
         env:
@@ -85,7 +90,7 @@ jobs:
           ZEN_GOOGLE_LOCATION_SERVICE_API_KEY: ${{ secrets.ZEN_GOOGLE_LOCATION_SERVICE_API_KEY }}
         run: npm run build
 
-      - name: Package installer
+      - name: Package
         run: npm run package
 
       - name: Upload artifacts
@@ -93,3 +98,4 @@ jobs:
         with:
           name: vibe-browser-build
           path: dist/
+          retention-days: 5
